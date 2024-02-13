@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "../css/style.css";
+@import "/css/style.css";
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
