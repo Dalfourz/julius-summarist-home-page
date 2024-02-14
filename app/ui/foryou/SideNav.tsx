@@ -1,15 +1,11 @@
+import Image from "next/image";
+import logo from "@/public/assets/logo.png"
+
 export default function SideNav() {
   return (
     <div className="sidebar sidebar--closed">
       <div className="sidebar__logo">
-        {/* <img
-          alt=""
-          src=""
-          width="495"
-          height="114"
-          loading="lazy"
-          style="color:transparent"
-        /> */}
+      <Image className="nav__img" src={logo} alt="logo" width={495} height={114}/>
       </div>
       <div className="sidebar__wrapper">
         <div className="sidebar__top">
