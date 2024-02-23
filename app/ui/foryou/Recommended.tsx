@@ -2,8 +2,9 @@ export default function Recommended() {
   return (
     <>
       <div>
-        <div className="for-you__title">Suggested Books</div>
-        <div className="for-you__sub--title">Browse those books</div>
+        <div className="for-you__title">Recommended Books</div>
+        <div className="for-you__sub--title">We think you’ll like these
+</div>
         <div className="for-you__recommended--books">
           {/* change divs to links later */}
           <div className="for-you__recommended--books-link">
