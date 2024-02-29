@@ -1,28 +1,82 @@
-export default function Selected() {
+"use client";
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { FaPlayCircle } from "react-icons/fa";
+
+// Define an interface for the book data
+interface Book {
+  id: string;
+  author: string;
+  title: string;
+  subTitle: string;
+  imageLink: string;
+  audioLink: string;
+  totalRatingL: number;
+  averageRating: number;
+  keyIdeas: number;
+  type: string;
+  status: string;
+  subscriptionRequired: string;
+  summary: string;
+  tags: string[];
+  bookDescription: string;
+  authorDescription: string;
+}
+
+const Selected: React.FC = () => {
+  const [selected, setSelected] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected"
+        );
+        setSelected(res.data);
+        setIsLoading(false);
+      } catch (err: any) {
+        setError(err.message);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <>
       <div className="for-you__title">Selected just for you</div>
-      {/* <div className="selected__book--skeleton"></div> */}
-      <div>Audio</div>
-      <a href="" className="selected__book">
-        <div className="selected__book--sub-title">How Constant Innovation Creates Radically Successful Business</div>
-        <div className="selected__book--line"></div>
-        <div className="selected__book--content">
-            <figure className="book__image--wrapper">
-                <img src="" alt="" />
+      {/* Iterate over selected books and display them */}
+      {selected.map((book, index) => (
+        <div key={index} className="selected__book">
+          <div className="selected__book--sub-title">{book.subTitle}</div>
+          <div className="selected__book--line"></div>
+
+          <div className="selected__book--content">
+            <figure className="book__image--wrapper items-center justify-center">
+              <img className="book__image w-[140px] h-[140px] " src={book.imageLink} alt="book" />
             </figure>
             <div className="selected__book--text">
-                <div className="selected__book--title">The Lean Startup</div>
-                <div className="selected__book--author">Eric Ries</div>
-                <div className="selected__book--duration-wrapper">
-                    <div className="selected__book--icon">
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path></svg>
-                    </div>
-                    <div className="selected__book--duration">3 mins 23 secs</div>
+              <div className="selected__book--title">{book.title}</div>
+              <div className="selected__book--author">{book.author}</div>
+              <div className="selected__book--duration-wrapper">
+                <div className="selected__book--icon">
+                  <FaPlayCircle />
                 </div>
+                <div className="seleceted__book--duration">3 mins 23 secs</div>
+              </div>
             </div>
+          </div>
         </div>
-      </a>
+      ))}
     </>
   );
-}
+};
+
+export default Selected;
