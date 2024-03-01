@@ -69,7 +69,7 @@ const Selected: React.FC = () => {
                 <div className="selected__book--icon">
                   <FaPlayCircle />
                 </div>
-                <div className="seleceted__book--duration">3 mins 23 secs</div>
+                <div className="selected__book--duration">3 mins 23 secs</div>
               </div>
             </div>
           </div>

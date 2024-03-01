@@ -4,10 +4,10 @@ import Suggested from "../ui/foryou/Suggested";
 
 export default function ForYou() {
   return (
-    <div>
+    <>
       <Selected />
       <Recommended />
       <Suggested />
-    </div>
+    </>
   )
 }
